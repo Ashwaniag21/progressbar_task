@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task</title>
+
+    <style>
+
+          .container{
+              background-color: #FBF8F8;
+              height: 250px;
+              width: 300px;
+              margin-top: 200px;
+              margin-left: 300px;
+              border-radius: 5px;
+          }
+
+          .container .form-control{
+              border: none;
+              margin-top: 45px;
+              margin-left: 60px;
+              padding: 10px;
+              border-radius: 5px;
+              color: black;
+              background-color: #D9D9D9;
+          }
+
+          .result{
+              float: right;
+              background-color: #FBF8F8;
+              height: 250px;
+              width: 300px;
+              margin-top: -250px;
+              border-radius: 5px;
+              margin-right: 300px;
+          }
+
+          .result img{
+            width: 149px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-top: 40px;
+            margin-left: 60px;
+            position: absolute;
+          }
+
+          .progress-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-top: 40px;
+            margin-left: 60px;
+          }
+
+          .circle{
+            float: right;
+            background-color:#E4EBF5;
+            height: 250px;
+            width: 300px;
+            margin-right: 300px;
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            clip: rect(0, 75px, 150px, 0);
+            transform: rotate(180deg);
+            transform-origin: center;
+            transition: all 1s ease-in-out;
+          }
+
+          .progress-bar {
+            float: right;
+            margin-right: 300px;
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            clip: rect(0, 75px, 150px, 0);
+            background-color: #E4EBF5;
+            transform: rotate(0deg);
+            transform-origin: center;
+            transition: all 1s ease-in-out;
+          }
+
+          button{
+              border: none;
+              padding: 10px;
+              padding-left: 85px;
+              padding-right: 85px;
+              color: black;
+              font-weight:bold ;
+              text-transform: uppercase;
+              background-color: #D9D9D9;
+              margin-left: 875px;
+              text-align: center;
+              cursor: pointer;
+              margin-top: -10px;
+          }
+
+          .progress-container {
+            width: 250px;
+            height: 30px;
+            background-color: #E4EBF5;
+            margin-top: 20px;
+            -ms-transform: rotate(-90deg); /* IE 9 */
+            transform: rotate(-90deg);
+            margin: auto;
+            margin-top: -195px;
+          }
+
+          .progress-verbar {
+            height: 100%;
+            width: 100%;
+            background-color: #6EA3F2;
+          }
+
+          .max{
+            margin-left: 200px;
+          }
+
+    </style>
+  
+</head>
+
+<body>
+   
+       <div class="container">
+
+            <input type="number" id="input-value" placeholder = "input value" class="form-control"><br><br>
+            
+            <input type="number" id="max-value" placeholder = "max value" class="form-control">
+        
+        </div>
+        
+        <div class="result">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyRwb8s6l5oU446yskM8tSavlXAZGzfx9KTVOt8VIg8pMf5KpG8xGyV0gMjjoTPBolFZI&usqp=CAU">
+            <div class="progress-circle">
+                
+                <div class="circle"></div>
+            <div id="progress-bar" class="progress-bar"></div>
+
+         </div></div>
+        
+        <br>
+        <button class="btn btn-primary" onclick="updateProgressBar()">Plot in Pie Chart</button>
+
+        <div class="progress-container">
+        <div class="progress-verbar" id="progress-verbar"></div>
+        <div class="max">100 %</div>
+        </div>
+      
+      <script>
+
+            function updateProgressBar() {
+            const input = parseInt(document.getElementById("input-value").value);
+            const max = parseInt(document.getElementById("max-value").value);
+            
+            if (isNaN(input) || isNaN(max)) {
+                alert("Please enter valid input and max values.");
+                return;
+            }
+            
+            if (input > max) {
+                alert("Input value cannot be greater than max value.");
+                return;
+            }
+            
+            const percentage = (input / max) * 100;
+            const degrees = (percentage / 100) * 360;
+            document.getElementById("progress-bar").style.transform = `rotate(${degrees}deg)`;
+            document.getElementById("progress-bar-fill").style.transform = `rotate(${degrees}deg)`;
+            }
+
+
+            const inputValue = document.getElementById("input-value");
+            const maxValue = document.getElementById("max-value");
+            const progressBar = document.getElementById("progress-verbar");
+
+            // Event listener for input value change
+            inputValue.addEventListener("input", updateProgress);
+
+            function updateProgress() {
+              // Check if input value is greater than max value
+              if (Number(inputValue.value) > Number(maxValue.value)) {
+                alert("Input value cannot be greater than max value.");
+                return;
+              }
+
+              // Update progress bar
+              const percentage = (Number(inputValue.value) / Number(maxValue.value)) * 100;
+              progressBar.style.width = `${percentage}%`;
+
+              };
+              const options = {
+                cutoutPercentage: 80
+              };
+                  
+
+      </script>
+</body>
+</html>
